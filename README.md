@@ -2,6 +2,18 @@
 
 **Status: working prototype, not production.** A showcase of AI agents for Business Analyst / Product Manager work across the SDLC — each agent does exactly **one** activity, every agent always produces an instant deterministic draft, and an optional "Draft with AI" action calls a real LLM when one is configured.
 
+## Design system
+
+The frontend's look ("AI theme": dark, gradient-accented, glassmorphic) is built as a real design system under `public/design-system/`, organized per [Brad Frost's Atomic Design](https://atomicdesign.bradfrost.com/chapter-2/):
+
+- `tokens.css` — raw values (colors, gradients, radii) + global reset
+- `atoms.css` — smallest elements: buttons, inputs, labels, links, text utilities
+- `molecules.css` — small atom groups: a labeled field, a button row, a panel header
+- `organisms.css` — self-contained sections: the hero banner, an agent card, the output panel
+- `templates.css` — page-level layout skeletons: grids, responsive breakpoints
+
+`public/styles.css` is just an `@import` manifest assembling those five layers in order. "Pages" are the real views in `public/views/*.js`, which populate the templates with live agent data. No new dependencies or CSP changes were needed — it's all same-origin CSS.
+
 ## What this is
 
 Every agent follows the same hybrid model:

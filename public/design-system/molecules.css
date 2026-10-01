@@ -1,0 +1,54 @@
+/* ==============================================================
+   MOLECULES — small, reusable groups of atoms functioning
+   together as a unit: a labeled field, a repeatable list row,
+   a button group, a panel header, a phase heading.
+   ============================================================== */
+
+/* Field = label atom + input atom + help text */
+.field { margin-bottom: 16px; }
+.field label { margin-bottom: 7px; }
+.field-help { font-size: 12px; color: var(--text-faint); margin: 4px 0 0; }
+
+/* List row = input atom + remove-button atom, repeated */
+.list-rows { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.list-row { display: flex; gap: 6px; }
+.list-row input { flex: 1; }
+
+/* Action row = primary + secondary button atoms + hint text */
+.actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+.ai-hint { font-size: 12px; color: var(--text-faint); }
+
+/* Panel header = title + action buttons */
+.output-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.output-header h2 {
+  font-size: 12.5px;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--text-faint);
+}
+.output-actions { display: flex; gap: 8px; }
+
+/* Phase heading = accent dot atom + uppercase label */
+.phase-group h2 {
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-faint);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+.phase-group h2::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--violet);
+  box-shadow: 0 0 10px currentColor;
+}

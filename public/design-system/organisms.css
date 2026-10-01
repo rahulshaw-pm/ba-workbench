@@ -1,0 +1,154 @@
+/* ==============================================================
+   ORGANISMS — distinct, self-contained sections assembled from
+   atoms + molecules: the hero banner, an agent card, a phase
+   section, the agent form, the output panel. These are the
+   pieces public/views/*.js instantiates with real content.
+   ============================================================== */
+
+/* Hero */
+.hero { text-align: center; padding: 28px 0 40px; }
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.brand .accent { animation: pulse-glow 3.2s ease-in-out infinite; }
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(155, 123, 255, 0.5)); }
+  50% { filter: drop-shadow(0 0 16px rgba(69, 232, 216, 0.7)); }
+}
+.tagline {
+  color: var(--text-dim);
+  max-width: 560px;
+  margin: 14px auto 0;
+  font-size: 15px;
+}
+
+/* Per-phase accent context (order matches agents/phases.js), read by
+   the agent-card organism below via the --phase-accent custom property */
+.phase-group:nth-of-type(1) h2 { color: var(--violet); }
+.phase-group:nth-of-type(1) h2::before { background: var(--violet); }
+.phase-group:nth-of-type(1) { --phase-accent: var(--violet); }
+.phase-group:nth-of-type(2) h2 { color: var(--cyan); }
+.phase-group:nth-of-type(2) h2::before { background: var(--cyan); }
+.phase-group:nth-of-type(2) { --phase-accent: var(--cyan); }
+.phase-group:nth-of-type(3) h2 { color: var(--amber); }
+.phase-group:nth-of-type(3) h2::before { background: var(--amber); }
+.phase-group:nth-of-type(3) { --phase-accent: var(--amber); }
+.phase-group:nth-of-type(4) h2 { color: var(--pink); }
+.phase-group:nth-of-type(4) h2::before { background: var(--pink); }
+.phase-group:nth-of-type(4) { --phase-accent: var(--pink); }
+
+/* Agent card */
+.agent-card {
+  position: relative;
+  display: block;
+  background:
+    linear-gradient(var(--surface-solid), var(--surface-solid)) padding-box,
+    linear-gradient(145deg, var(--border-strong), transparent 60%) border-box;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 18px 18px 16px;
+  text-decoration: none;
+  color: var(--text);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.agent-card::before {
+  content: "✳";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--phase-accent, var(--violet));
+  background: color-mix(in srgb, var(--phase-accent, var(--violet)) 16%, transparent);
+}
+.agent-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: radial-gradient(180px circle at 50% 0%, color-mix(in srgb, var(--phase-accent, var(--violet)) 22%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.agent-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px -12px color-mix(in srgb, var(--phase-accent, var(--violet)) 45%, transparent);
+}
+.agent-card:hover::after { opacity: 1; }
+.agent-card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 650; position: relative; }
+.agent-card p { margin: 0; font-size: 13px; color: var(--text-dim); position: relative; }
+
+/* Agent detail header */
+.agent-header { padding: 8px 0 22px; }
+.agent-header h1 {
+  margin: 12px 0 6px;
+  font-size: 24px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+.agent-desc { color: var(--text-dim); margin: 0; font-size: 14.5px; }
+
+/* Agent form & output panel surfaces */
+.agent-form, .output-panel {
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.output-panel { background: rgba(10, 11, 18, 0.55); }
+
+.output-body { font-size: 14px; }
+.output-body h1, .output-body h2, .output-body h3 { margin-top: 1.2em; letter-spacing: -0.01em; }
+.output-body table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 13px; }
+.output-body th {
+  background: var(--surface-2);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+.output-body th, .output-body td { border: 1px solid var(--border); padding: 7px 9px; text-align: left; }
+.output-body pre {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  overflow-x: auto;
+}
+.output-body code { font-family: "SFMono-Regular", Menlo, monospace; font-size: 12.5px; color: var(--cyan); }
+.output-body pre code { color: var(--text); }
+.output-body blockquote {
+  border-left: 2px solid var(--violet);
+  margin: 0;
+  padding: 6px 14px;
+  color: var(--text-dim);
+  background: color-mix(in srgb, var(--violet) 6%, transparent);
+  border-radius: 0 7px 7px 0;
+}
+.output-empty, .output-loading { color: var(--text-faint); }
+.output-loading { position: relative; padding-left: 20px; }
+.output-loading::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--cyan);
+  animation: spin 0.8s linear infinite;
+}
+.output-error { color: var(--danger); }
