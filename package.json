@@ -4,10 +4,10 @@
   "description": "A showcase of single-activity BA/PM SDLC agents with deterministic templates and optional AI drafting.",
   "type": "module",
   "private": true,
-  "engines": { "node": ">=20" },
+  "engines": { "node": ">=20.12.0" },
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js",
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --watch --env-file-if-exists=.env server.js",
     "test": "node --test"
   },
   "dependencies": {},

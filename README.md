@@ -64,10 +64,11 @@ Configure AI drafting on Vercel via Project Settings → Environment Variables, 
 
 ## Configuring AI drafting
 
-Copy `.env.example` to `.env` and set `AI_PROVIDER` to one of:
+Copy `.env.example` to `.env` and set `AI_PROVIDER` to one of the options below — `npm start`/`npm run dev` load it automatically via Node's `--env-file-if-exists` (no `dotenv` dependency needed), and run fine with no `.env` at all (defaults to `none`):
 
 - `anthropic` — set `ANTHROPIC_API_KEY` (and optionally `ANTHROPIC_MODEL`)
 - `azure-openai` — set `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_API_KEY`, `AZURE_OPENAI_DEPLOYMENT`
+- `openai` — set `OPENAI_API_KEY` (and optionally `OPENAI_MODEL`, default `gpt-4o-mini`)
 - `ollama` — run [Ollama](https://ollama.com) locally; optionally set `OLLAMA_HOST` / `OLLAMA_MODEL`
 
 `.env` is never committed (see `.gitignore`), and `/api/status` only ever reports `{ ai: boolean, route: string }` — no secrets or env var names are ever returned to the client.

@@ -8,6 +8,7 @@ function withEnv(vars, fn) {
     "AZURE_OPENAI_ENDPOINT",
     "AZURE_OPENAI_API_KEY",
     "AZURE_OPENAI_DEPLOYMENT",
+    "OPENAI_API_KEY",
   ];
   const saved = Object.fromEntries(keys.map((k) => [k, process.env[k]]));
   for (const k of keys) delete process.env[k];
@@ -59,6 +60,20 @@ test("azure-openai provider requires endpoint, key, and deployment", async () =>
       assert.deepEqual(getProviderStatus(), { configured: true, route: "azure-openai" });
     }
   );
+});
+
+test("openai provider is unconfigured without an API key", async () => {
+  const { getProviderStatus } = await import("../lib/aiProvider.js");
+  withEnv({ AI_PROVIDER: "openai" }, () => {
+    assert.deepEqual(getProviderStatus(), { configured: false, route: "openai" });
+  });
+});
+
+test("openai provider is configured once an API key is present", async () => {
+  const { getProviderStatus } = await import("../lib/aiProvider.js");
+  withEnv({ AI_PROVIDER: "openai", OPENAI_API_KEY: "sk-test" }, () => {
+    assert.deepEqual(getProviderStatus(), { configured: true, route: "openai" });
+  });
 });
 
 test("ollama provider is considered configured by default (local, no key needed)", async () => {
