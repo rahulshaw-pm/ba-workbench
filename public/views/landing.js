@@ -16,7 +16,7 @@ export function renderLanding(root, data) {
   const header = el("header", { class: "hero" }, [
     el("div", { class: "brand", html: '<span class="accent">✳</span>AGENTIC BA WORKBENCH' }),
     el("p", { class: "tagline" }, [
-      document.createTextNode("Single-activity AI agents for every stage of the BA/PM lifecycle — from evidence to backlog."),
+      document.createTextNode("AI Agents for every stage of SDLC - from evidence to backlog."),
     ]),
   ]);
   root.appendChild(header);
