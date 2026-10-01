@@ -2,6 +2,8 @@
 
 **Status: working prototype, not production.** A showcase of AI agents for Business Analyst / Product Manager work across the SDLC — each agent does exactly **one** activity, every agent always produces an instant deterministic draft, and an optional "Draft with AI" action calls a real LLM when one is configured.
 
+**Live demo:** [ba-workbench-one.vercel.app](https://ba-workbench-one.vercel.app) — deployed on Vercel with "Draft with AI" enabled (OpenAI).
+
 ## Design system
 
 The frontend's look ("AI theme": dark, gradient-accented, glassmorphic) is built as a real design system under `public/design-system/`, organized per [Brad Frost's Atomic Design](https://atomicdesign.bradfrost.com/chapter-2/):
