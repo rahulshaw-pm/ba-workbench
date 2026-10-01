@@ -5,6 +5,7 @@ import { getAgent, listAgentsMetadata, PHASES } from "./agents/registry.js";
 import { getProviderStatus, generate, AiProviderError } from "./lib/aiProvider.js";
 import { validateInputAgainstSchema, rejectRestrictedContent, ValidationError } from "./lib/validate.js";
 import { SECURITY_HEADERS, sendJson, readJsonBody, createStaticHandler } from "./lib/http.js";
+import { heartbeat } from "./lib/presence.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(__dirname, "public");
@@ -29,6 +30,12 @@ async function handleAgentsList(req, res) {
 async function handleStatus(req, res) {
   const status = getProviderStatus();
   sendJson(res, 200, { ai: status.configured, route: status.route });
+}
+
+async function handlePresence(req, res) {
+  const body = await readJsonBody(req);
+  const count = heartbeat(body.sessionId);
+  sendJson(res, 200, { count });
 }
 
 async function handleAgentRun(req, res, id) {
@@ -84,6 +91,9 @@ const server = http.createServer(async (req, res) => {
     }
     if (pathname === "/api/status" && req.method === "GET") {
       return await handleStatus(req, res);
+    }
+    if (pathname === "/api/presence" && req.method === "POST") {
+      return await handlePresence(req, res);
     }
     const runMatch = pathname.match(/^\/api\/agents\/([a-z0-9-]+)\/run$/);
     if (runMatch && req.method === "POST") {

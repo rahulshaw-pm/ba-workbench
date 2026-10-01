@@ -27,6 +27,62 @@
   font-size: 15px;
 }
 
+/* Eyes mascot — idles via CSS keyframes, hands off to JS pointer-tracking
+   on first real mousemove/touchmove (see public/lib/eyes.js) */
+.eyes-widget {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 18px 0 6px;
+}
+.eye {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #1c1f2b, #0a0b12 70%);
+  border: 1px solid var(--border-strong);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6), 0 0 18px -4px color-mix(in srgb, var(--violet) 45%, transparent);
+  overflow: hidden;
+}
+.eye .pupil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--gradient-ai);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--cyan) 70%, transparent);
+  transform: translate(-50%, -50%);
+  animation: look-around 7s ease-in-out infinite;
+}
+.eye:nth-child(2) .pupil { animation-delay: -0.2s; }
+.eye .lid {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-solid);
+  border-radius: 50%;
+  transform: scaleY(0);
+  transform-origin: top;
+  animation: blink 5.5s ease-in-out infinite;
+}
+.eye:nth-child(2) .lid { animation-delay: 0.4s; }
+
+@keyframes look-around {
+  0%, 100% { transform: translate(-50%, -50%); }
+  12% { transform: translate(calc(-50% - 7px), calc(-50% - 2px)); }
+  28% { transform: translate(calc(-50% + 8px), calc(-50% - 4px)); }
+  44% { transform: translate(calc(-50% + 2px), calc(-50% + 7px)); }
+  60% { transform: translate(calc(-50% - 8px), calc(-50% + 3px)); }
+  76% { transform: translate(-50%, -50%); }
+  90% { transform: translate(calc(-50% + 5px), calc(-50% - 5px)); }
+}
+@keyframes blink {
+  0%, 94%, 100% { transform: scaleY(0); }
+  96%, 98% { transform: scaleY(1); }
+}
+
 /* Per-phase accent context (order matches agents/phases.js), read by
    the agent-card organism below via the --phase-accent custom property */
 .phase-group:nth-of-type(1) h2 { color: var(--violet); }

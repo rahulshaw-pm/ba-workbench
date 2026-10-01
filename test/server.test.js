@@ -120,6 +120,17 @@ test("cross-origin requests are rejected", async () => {
   assert.equal(res.status, 403);
 });
 
+test("POST /api/presence returns an active count", async () => {
+  const res = await fetch(`${BASE}/api/presence`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sessionId: "test-session-1" }),
+  });
+  assert.equal(res.status, 200);
+  const data = await res.json();
+  assert.ok(Number.isInteger(data.count) && data.count >= 1);
+});
+
 test("static file serving returns index.html at /", async () => {
   const res = await fetch(`${BASE}/`);
   assert.equal(res.status, 200);

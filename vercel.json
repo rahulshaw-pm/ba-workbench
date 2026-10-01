@@ -3,6 +3,7 @@
   "builds": [
     { "src": "api/agents.js", "use": "@vercel/node" },
     { "src": "api/status.js", "use": "@vercel/node" },
+    { "src": "api/presence.js", "use": "@vercel/node" },
     { "src": "api/agents/[id]/run.js", "use": "@vercel/node" },
     { "src": "public/**", "use": "@vercel/static" }
   ],
@@ -19,6 +20,7 @@
     { "src": "/api/agents/(?<id>[^/]+)/run", "dest": "/api/agents/[id]/run.js?id=$id" },
     { "src": "/api/agents", "dest": "/api/agents.js" },
     { "src": "/api/status", "dest": "/api/status.js" },
+    { "src": "/api/presence", "dest": "/api/presence.js" },
     { "src": "/$", "dest": "/public/index.html" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]

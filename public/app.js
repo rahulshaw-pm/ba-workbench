@@ -1,6 +1,8 @@
 import { fetchJson } from "./lib/api.js";
 import { renderLanding } from "./views/landing.js";
 import { renderAgentView } from "./views/agentView.js";
+import { initPresence } from "./lib/presence.js";
+import { initEyes } from "./lib/eyes.js";
 
 const root = document.getElementById("app");
 let agentsData = null;
@@ -34,3 +36,5 @@ async function router() {
 
 window.addEventListener("hashchange", router);
 window.addEventListener("DOMContentLoaded", router);
+window.addEventListener("DOMContentLoaded", initPresence);
+window.addEventListener("DOMContentLoaded", initEyes);

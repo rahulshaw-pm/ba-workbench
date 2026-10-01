@@ -9,12 +9,23 @@ function el(tag, props = {}, children = []) {
   return node;
 }
 
+function buildEyes() {
+  const widget = el("div", { class: "eyes-widget", "aria-hidden": "true" });
+  for (let i = 0; i < 2; i++) {
+    widget.appendChild(
+      el("div", { class: "eye" }, [el("div", { class: "pupil" }), el("div", { class: "lid" })])
+    );
+  }
+  return widget;
+}
+
 export function renderLanding(root, data) {
   const { agents, phases } = data;
   root.innerHTML = "";
 
   const header = el("header", { class: "hero" }, [
     el("div", { class: "brand", html: '<span class="accent">✳</span>AGENTIC BA WORKBENCH' }),
+    buildEyes(),
     el("p", { class: "tagline" }, [
       document.createTextNode("AI Agents for every stage of SDLC - from evidence to backlog."),
     ]),

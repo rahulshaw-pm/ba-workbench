@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import agentsHandler from "../api/agents.js";
 import statusHandler from "../api/status.js";
+import presenceHandler from "../api/presence.js";
 import runHandler from "../api/agents/[id]/run.js";
 
 function mockRes() {
@@ -75,4 +76,12 @@ test("api/agents/[id]/run returns 409 for AI mode with no provider configured", 
   };
   await runHandler(req, res);
   assert.equal(res.statusCode, 409);
+});
+
+test("api/presence returns an active count", () => {
+  const res = mockRes();
+  const req = { method: "POST", headers: { "content-type": "application/json" }, body: { sessionId: "vercel-test-1" } };
+  presenceHandler(req, res);
+  assert.equal(res.statusCode, 200);
+  assert.ok(Number.isInteger(res.body.count) && res.body.count >= 1);
 });

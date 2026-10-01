@@ -77,13 +77,14 @@ Copy `.env.example` to `.env` and set `AI_PROVIDER` to one of the options below 
 
 ## Security model
 
-Every response carries a strict Content-Security-Policy (`default-src 'self'`, no inline scripts/styles, no external script hosts), `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer`, and `Cache-Control: no-store`. The server also enforces a Host/Origin allowlist, requires `Content-Type: application/json` on POST requests, caps request bodies at 100KB, and rejects any input containing a `[restricted]` classification marker before it reaches a template or an AI provider. The app is stateless — nothing is persisted server-side, and there is no authentication, so it's intended for local or trusted use, not multi-tenant production.
+Every response carries a strict Content-Security-Policy (`default-src 'self'`, no inline scripts/styles, no external script hosts), `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer`, and `Cache-Control: no-store`. The server also enforces a Host/Origin allowlist, requires `Content-Type: application/json` on POST requests, caps request bodies at 100KB, and rejects any input containing a `[restricted]` classification marker before it reaches a template or an AI provider. The app persists nothing to disk and has no authentication — the one exception is an ephemeral, 30-second in-memory "who's online" presence count (see below), which holds no identity, just anonymous per-tab session ids that expire on their own. Overall it's intended for local or trusted use, not multi-tenant production.
 
 ## API reference
 
 - `GET /api/agents` → `{ agents: [...], phases: [...] }` — registry metadata only, no code.
 - `POST /api/agents/:id/run` body `{ input: {...}, mode: "template" | "ai" }` → `{ output, mode, route? }`.
 - `GET /api/status` → `{ ai: boolean, route: string }`.
+- `POST /api/presence` body `{ sessionId: string }` → `{ count: number }` — heartbeat powering the "N online" badge. A session counts as active for 30s after its last heartbeat. **Caveat:** on Vercel this count is per serverless instance, not globally shared, so it's best-effort there (accurate for light traffic, can undercount under real concurrent load); it's exact on the long-running local/Azure-style server.
 
 ## Adding a new agent
 
