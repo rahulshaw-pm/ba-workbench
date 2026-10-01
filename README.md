@@ -38,6 +38,18 @@ npm start
 
 Open http://localhost:3000.
 
+## Deploying
+
+**Local / Azure App Service style:** `server.js` is a self-contained `node:http` server (`npm start`) — deploy it anywhere that runs a long-lived Node process.
+
+**Vercel (serverless):** the same `agents/` and `lib/` business logic is also exposed through thin serverless functions under `api/` (`api/agents.js`, `api/status.js`, `api/agents/[id]/run.js`), with the static frontend served from `public/`. `vercel.json` pins an explicit `builds`/`routes` config — Vercel's zero-config detection otherwise misidentifies the project and tries to treat `public/app.js` as the whole app, so don't remove it. Deploy with:
+
+```sh
+vercel deploy --prod
+```
+
+Configure AI drafting on Vercel via Project Settings → Environment Variables, using the same variables listed below.
+
 ## Configuring AI drafting
 
 Copy `.env.example` to `.env` and set `AI_PROVIDER` to one of:
