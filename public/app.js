@@ -19,7 +19,7 @@ async function router() {
     if (!agentsData) agentsData = await fetchJson("/api/agents");
     if (!statusData) statusData = await fetchJson("/api/status");
   } catch (err) {
-    return renderError(`Failed to load BA Workbench: ${err.message}`);
+    return renderError(`Failed to load Agentic BA Workbench: ${err.message}`);
   }
 
   const hash = location.hash || "#/";

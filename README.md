@@ -1,4 +1,4 @@
-# BA Workbench
+# Agentic BA Workbench
 
 **Status: working prototype, not production.** A showcase of AI agents for Business Analyst / Product Manager work across the SDLC — each agent does exactly **one** activity, every agent always produces an instant deterministic draft, and an optional "Draft with AI" action calls a real LLM when one is configured.
 

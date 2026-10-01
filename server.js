@@ -108,7 +108,7 @@ const server = http.createServer(async (req, res) => {
 
 if (process.env.NODE_ENV !== "test") {
   server.listen(PORT, () => {
-    console.log(`BA Workbench listening on http://localhost:${PORT}`);
+    console.log(`Agentic BA Workbench listening on http://localhost:${PORT}`);
   });
 }
 
