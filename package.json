@@ -1,0 +1,15 @@
+{
+  "name": "ba-workbench",
+  "version": "0.1.0",
+  "description": "A showcase of single-activity BA/PM SDLC agents with deterministic templates and optional AI drafting.",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
