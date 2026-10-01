@@ -9,7 +9,11 @@
 <body>
   <div class="bg-grid" aria-hidden="true"></div>
   <div id="presence" class="presence-badge" hidden></div>
-  <div id="app"></div>
+  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+  <div class="app-shell">
+    <nav id="sidebar" class="sidebar"></nav>
+    <main id="app" class="app-content"></main>
+  </div>
   <script type="module" src="/app.js"></script>
 </body>
 </html>

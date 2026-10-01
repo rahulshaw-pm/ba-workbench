@@ -5,7 +5,24 @@
    agentView.js populating these skeletons with real agents.
    ============================================================== */
 
-#app { max-width: 1120px; margin: 0 auto; padding: 48px 20px 90px; position: relative; }
+/* App shell = sidebar organism + main content column */
+.app-shell {
+  display: flex;
+  align-items: flex-start;
+}
+
+.app-content {
+  flex: 1;
+  min-width: 0;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 20px 90px;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .app-shell { display: block; }
+}
 
 .phase-group { margin-top: 40px; }
 
